@@ -45,3 +45,4 @@ jobs:
   - task: test-interpolate
     image: platform-automation-image-s3
     file: test-interpolation-task-src/test-interpolation-task-src/test-task.yml
+    input_mapping: { config: test-interpolation-task-src/config, vars: test-interpolation-task-src/vars }
