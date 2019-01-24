@@ -38,11 +38,12 @@ jobs:
     - get: platform-automation-image-s3
       params:
         unpack: true
-    - get: test-interpolation-task-src
+    - get: stuff
+      resource: test-interpolation-task-src
       params:
         unpack: true
 
   - task: test-interpolate
     image: platform-automation-image-s3
     file: test-interpolation-task-src/test-interpolation-task-src/test-task.yml
-    input_mapping: { config: test-interpolation-task-src/config, vars: test-interpolation-task-src/vars }
+    input_mapping: { config: stuff/config, vars: stuff/vars }
