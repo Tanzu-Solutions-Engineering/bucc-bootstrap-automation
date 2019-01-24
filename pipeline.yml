@@ -38,8 +38,7 @@ jobs:
     - get: platform-automation-image-s3
       params:
         unpack: true
-    - get: stuff
-      resource: test-interpolation-task-src
+    - get: test-interpolation-task-src
       params:
         unpack: true
 
