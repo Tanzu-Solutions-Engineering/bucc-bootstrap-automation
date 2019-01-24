@@ -1,0 +1,53 @@
+resources:
+- name: platform-automation-tasks-s3
+  type: s3
+  source:
+    access_key_id: ((s3_access_key))
+    secret_access_key: ((s3_secret_access_key))
+    #region_name: pivotal
+    bucket: bucc
+    regexp: platform-automation-tasks-(.*).zip
+    endpoint: https://storage.googleapis.com
+    #disable_ssl: true
+    use_v2_signing: true
+    skip_ssl_verification: true
+
+- name: platform-automation-image-s3
+  type: s3
+  source:
+    access_key_id: ((s3_access_key))
+    secret_access_key: ((s3_secret_access_key))
+    #region_name: pivotal
+    bucket: bucc
+    regexp: platform-automation-image-(.*).tgz
+    endpoint: https://storage.googleapis.com
+    #disable_ssl: true
+
+- name: test-interpolation-task-src
+  type: git
+  source:
+    uri: https://github.com/Pivotal-Field-Engineering/bucc-bootstrap-automation
+
+jobs:
+- name: test-resources
+  plan:
+  - aggregate:
+    - get: platform-automation-tasks-s3
+      params:
+        unpack: true
+    - get: platform-automation-image-s3
+      params:
+        unpack: true
+    - get: test-interpolation-task-src
+      params:
+        unpack: true
+    - get: config
+      params:
+        unpack: true
+    - get: vars
+      params:
+        unpack: true
+
+  - task: test-interpolate
+    image: platform-automation-image-s3
+    file: test-interpolation-task-src/test-interpolation-task-src/test-task.yml
