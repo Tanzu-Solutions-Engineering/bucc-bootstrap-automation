@@ -41,12 +41,6 @@ jobs:
     - get: test-interpolation-task-src
       params:
         unpack: true
-    - get: config
-      params:
-        unpack: true
-    - get: vars
-      params:
-        unpack: true
 
   - task: test-interpolate
     image: platform-automation-image-s3
