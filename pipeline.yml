@@ -47,8 +47,8 @@ jobs:
       outputs:
         - name: config
       run:
-        path: mv
-        args: [ config/* ../config ]
+        path: ls
+        args: [ . config/* ../config ]
   - task: test-interpolate
     image: platform-automation-image-s3
     file: test-interpolation-task-src/test-interpolation-task-src/test-task.yml
