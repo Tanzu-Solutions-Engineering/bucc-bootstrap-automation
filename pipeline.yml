@@ -48,8 +48,8 @@ jobs:
       outputs:
         - name: config
       run:
-        path: ls
-        args: [-l,.,config/*, ../config]
+        path: find
+        args: [.]
   - task: test-interpolate
     image: platform-automation-image-s3
     file: test-interpolation-task-src/test-interpolation-task-src/test-task.yml
