@@ -40,7 +40,16 @@ jobs:
         unpack: true
     - get: test-interpolation-task-src
 
+  - task: move-stuff
+    config:
+      inputs:
+        - name: test-interpolation-task-src
+      outputs:
+        - name: config
+      run:
+        path: mv
+        args: [ config/* ../config ]
   - task: test-interpolate
     image: platform-automation-image-s3
     file: test-interpolation-task-src/test-interpolation-task-src/test-task.yml
-    input_mapping: { config: test-interpolation-task-src, vars: bucc-bootstrap-automation }
+    input_mapping: { vars: bucc-bootstrap-automation }
