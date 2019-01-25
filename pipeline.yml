@@ -4,24 +4,18 @@ resources:
   source:
     access_key_id: ((s3_access_key))
     secret_access_key: ((s3_secret_access_key))
-    #region_name: pivotal
     bucket: bucc
     regexp: platform-automation-tasks-(.*).zip
     endpoint: https://storage.googleapis.com
-    #disable_ssl: true
-    use_v2_signing: true
-    skip_ssl_verification: true
 
 - name: platform-automation-image-s3
   type: s3
   source:
     access_key_id: ((s3_access_key))
     secret_access_key: ((s3_secret_access_key))
-    #region_name: pivotal
     bucket: bucc
     regexp: platform-automation-image-(.*).tgz
     endpoint: https://storage.googleapis.com
-    #disable_ssl: true
 
 - name: test-interpolation-task-src
   type: git
@@ -40,7 +34,13 @@ jobs:
         unpack: true
     - get: test-interpolation-task-src
 
-  - task: move-config
+  ####
+  # Move the subdirectories from the git checkout to a place where Concourse
+  # can make them available to the test-interpolate task.
+  #
+  # Note: the image is specified since the base container image has no bash
+  ####
+  - task: prepare-inputs
     image: platform-automation-image-s3
     config:
       platform: linux
@@ -48,26 +48,13 @@ jobs:
         - name: test-interpolation-task-src
       outputs:
         - name: config
-      run:
-        path: bash
-        args:
-          - "-c"
-          - |
-            mv test-interpolation-task-src/config/* config/
-
-  - task: move-vars
-    image: platform-automation-image-s3
-    config:
-      platform: linux
-      inputs:
-        - name: test-interpolation-task-src
-      outputs:
         - name: vars
       run:
         path: bash
         args:
           - "-c"
           - |
+            mv test-interpolation-task-src/config/* config/
             mv test-interpolation-task-src/vars/* vars/
 
   - task: test-interpolate
