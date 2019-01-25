@@ -49,7 +49,7 @@ jobs:
         - name: config
       run:
         path: ls
-        args: [ . , config/* , ../config ]
+        args: [-l,.,config/*, ../config]
   - task: test-interpolate
     image: platform-automation-image-s3
     file: test-interpolation-task-src/test-interpolation-task-src/test-task.yml
