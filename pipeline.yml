@@ -48,8 +48,12 @@ jobs:
       outputs:
         - name: config
       run:
-        path: find && mv
-        args: [test-interpolation-task-src/config/\*,config]
+        path: bash
+        args:
+          - "-c"
+          - |
+            mv test-interpolation-task-src/config/* config/
+
   - task: move-vars
     config:
       platform: linux
@@ -58,9 +62,12 @@ jobs:
       outputs:
         - name: vars
       run:
-        path: find && mv
-        args: [test-interpolation-task-src/vars/*,vars]
+        path: bash
+        args:
+          - "-c"
+          - |
+            mv test-interpolation-task-src/vars/* vars/
+
   - task: test-interpolate
     image: platform-automation-image-s3
     file: test-interpolation-task-src/test-interpolation-task-src/test-task.yml
-    input_mapping: { vars: bucc-bootstrap-automation }
