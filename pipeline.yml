@@ -41,9 +41,9 @@ jobs:
     - get: test-interpolation-task-src
 
   - task: move-config
+    image: platform-automation-image-s3
     config:
       platform: linux
-      image: platform-automation-image-s3
       inputs:
         - name: test-interpolation-task-src
       outputs:
@@ -56,9 +56,9 @@ jobs:
             mv test-interpolation-task-src/config/* config/
 
   - task: move-vars
+    image: platform-automation-image-s3
     config:
       platform: linux
-      image: platform-automation-image-s3
       inputs:
         - name: test-interpolation-task-src
       outputs:
