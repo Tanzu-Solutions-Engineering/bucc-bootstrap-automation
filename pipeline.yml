@@ -74,4 +74,4 @@ jobs:
     image: platform-automation-image-s3
     file: test-interpolation-task-src/test-interpolation-task-src/test-task.yml
     params:
-      VARS_FILES: vars.yml
+      VARS_FILES: vars/vars.yml
