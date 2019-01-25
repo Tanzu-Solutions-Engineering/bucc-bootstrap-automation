@@ -49,7 +49,7 @@ jobs:
         - name: config
       run:
         path: mv
-        args: [test-interpolation-task-src/config/*,config]
+        args: [test-interpolation-task-src/config/**,config]
   - task: move-vars
     config:
       platform: linux
