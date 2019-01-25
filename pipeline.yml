@@ -58,8 +58,8 @@ jobs:
       outputs:
         - name: vars
       run:
-        path: mv
-        args: [test-interpolation-task-src/vars/*,vars]
+        path: mv test-interpolation-task-src/vars/* vars
+        #args: [test-interpolation-task-src/vars/*,vars]
   - task: test-interpolate
     image: platform-automation-image-s3
     file: test-interpolation-task-src/test-interpolation-task-src/test-task.yml
