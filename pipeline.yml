@@ -42,6 +42,7 @@ jobs:
 
   - task: move-stuff
     config:
+      platform: linux
       inputs:
         - name: test-interpolation-task-src
       outputs:
