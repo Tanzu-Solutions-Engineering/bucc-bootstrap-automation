@@ -48,7 +48,7 @@ jobs:
       outputs:
         - name: config
       run:
-        path: bash
+        path: /bin/bash
         args:
           - "-c"
           - |
@@ -62,7 +62,7 @@ jobs:
       outputs:
         - name: vars
       run:
-        path: bash
+        path: /bin/bash
         args:
           - "-c"
           - |
