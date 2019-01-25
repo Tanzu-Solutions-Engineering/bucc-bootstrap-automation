@@ -40,7 +40,7 @@ jobs:
         unpack: true
     - get: test-interpolation-task-src
 
-  - task: move-stuff
+  - task: move-config
     config:
       platform: linux
       inputs:
@@ -48,8 +48,18 @@ jobs:
       outputs:
         - name: config
       run:
-        path: find
-        args: [.]
+        path: mv
+        args: [test-interpolation-task-src/config/*,config]
+  - task: move-vars
+    config:
+      platform: linux
+      inputs:
+        - name: test-interpolation-task-src
+      outputs:
+        - name: vars
+      run:
+        path: mv
+        args: [test-interpolation-task-src/vars/*,vars]
   - task: test-interpolate
     image: platform-automation-image-s3
     file: test-interpolation-task-src/test-interpolation-task-src/test-task.yml
